@@ -1,280 +1,182 @@
-import {
-auth,
-db
-}
-from "./firebase-config.js";
-
+import { auth, db } from "./firebase-config.js";
 
 import {
-
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword
-
-}
-
-from 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import {
+    doc,
+    setDoc,
+    getDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-doc,
-setDoc,
-getDoc,
-serverTimestamp
+const message = document.getElementById("message");
 
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-
-
-
+// ================= REGISTER =================
 
 window.register = async function(){
 
+    let display_name = document.getElementById("display_name").value;
+    let username = document.getElementById("username").value;
+    let email = document.getElementById("email").value;
+    let phone_number = document.getElementById("phone_number").value;
+    let gender = document.getElementById("gender").value;
+    let department_name = document.getElementById("department_name").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
 
-let displayName =
-document.getElementById("displayName").value;
+    if(password !== confirmPassword){
+        message.innerHTML = "Password not match";
+        return;
+    }
 
+    try{
 
-let username =
-document.getElementById("username").value;
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
 
+        const user = userCredential.user;
 
-let email =
-document.getElementById("email").value;
+        await setDoc(
+            doc(db,"users",user.uid),
+            {
+                email:email,
+                phone_number:phone_number,
+                gender:gender,
+                department_name:department_name,
+                username:username,
+                display_name:display_name,
+                role:"admin",
+                createdAt:serverTimestamp()
+            }
+        );
 
+        message.style.color="green";
+        message.innerHTML="Register successful. Redirecting to login...";
 
-let phone =
-document.getElementById("phone").value;
+        setTimeout(()=>{
 
+            showLogin();
+            message.innerHTML="";
 
-let gender =
-document.getElementById("gender").value;
+        },2000);
 
+    }
+    catch(error){
 
-let department =
-document.getElementById("department").value;
+        message.style.color="red";
+        message.innerHTML=error.message;
 
+    }
 
-let password =
-document.getElementById("password").value;
+};
 
 
-let confirm =
-document.getElementById("confirmPassword").value;
-
-
-
-if(password !== confirm){
-
-message.innerHTML="Password not match";
-
-return;
-
-}
-
-
-
-try{
-
-
-const userCredential =
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-
-
-const user =
-userCredential.user;
-
-
-
-await setDoc(
-doc(db,"users",user.uid),
-
-{
-
-
-uid:user.uid,
-
-displayName,
-
-username,
-
-email,
-
-departmentName:department,
-
-gender,
-
-phoneNumber:phone,
-
-photoUrl:"",
-
-role:"Admin",
-
-createdAt:serverTimestamp()
-
-
-}
-
-);
-
-
-
-message.innerHTML=
-"Register successful";
-
-
-showLogin();
-
-
-}
-
-catch(error){
-
-message.innerHTML =
-error.message;
-
-}
-
-
-}
-
-
-
-
-
-
+// ================= LOGIN =================
 
 window.login = async function(){
 
+    let email = document.getElementById("loginEmail").value;
+    let password = document.getElementById("loginPassword").value;
 
-let email =
-document.getElementById("loginEmail").value;
+    try{
 
+        const result = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
 
-let password =
-document.getElementById("loginPassword").value;
+        const uid = result.user.uid;
 
+        const userDoc = await getDoc(
+            doc(db,"users",uid)
+        );
 
+        if(userDoc.exists()){
 
-try{
+            const data = userDoc.data();
 
+            if(data.role === "admin"){
 
-let result =
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
+                message.style.color="green";
+                message.innerHTML="Login successful...";
 
+                window.location.href="dashboard.php";
 
+            }
+            else{
 
-let uid =
-result.user.uid;
+                message.innerHTML="Access denied. Admin only.";
 
+            }
 
+        }
+        else{
 
-let userDoc =
-await getDoc(
-doc(db,"users",uid)
-);
+            message.innerHTML="User data not found";
 
+        }
 
+    }
+    catch(error){
 
-if(userDoc.exists()){
+        message.style.color="red";
+        message.innerHTML="Invalid email or password";
 
+    }
 
-let data =
-userDoc.data();
+};
 
 
+// ================= SWITCH FORM =================
 
-if(data.role==="Admin"){
+window.showRegister = function(){
 
+    document
+    .getElementById("loginForm")
+    .classList.remove("active");
 
-window.location.href="dashboard.php";
+    document
+    .getElementById("registerForm")
+    .classList.add("active");
 
+};
 
-}
 
-else{
+window.showLogin = function(){
 
+    document
+    .getElementById("registerForm")
+    .classList.remove("active");
 
-message.innerHTML=
-"Access denied";
+    document
+    .getElementById("loginForm")
+    .classList.add("active");
 
+};
 
-}
 
+// ================= SHOW PASSWORD =================
 
-}
+window.showPassword = function(id){
 
+    let input = document.getElementById(id);
 
+    if(input.type === "password"){
 
-}
+        input.type="text";
 
+    }
+    else{
 
-catch(error){
+        input.type="password";
 
-message.innerHTML=
-"Invalid login";
+    }
 
-
-}
-
-
-}
-
-
-
-
-
-
-
-window.showRegister=function(){
-
-loginForm.classList.remove("active");
-
-registerForm.classList.add("active");
-
-}
-
-
-
-
-window.showLogin=function(){
-
-registerForm.classList.remove("active");
-
-loginForm.classList.add("active");
-
-}
-
-
-
-
-
-window.showPassword=function(id){
-
-let input =
-document.getElementById(id);
-
-
-input.type =
-input.type==="password"
-?
-"text"
-:
-"password";
-
-
-}
+};

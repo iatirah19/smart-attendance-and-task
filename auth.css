@@ -1,234 +1,236 @@
 *{
-
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
-
 
 body{
-
-min-height:100vh;
-
-background:#F8FAFC;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
+    min-height:100vh;
+    background:#F1F5F9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-
-
+/* MAIN CONTAINER */
 .container{
-
-width:950px;
-
-height:600px;
-
-display:flex;
-
-background:white;
-
-border-radius:25px;
-
-overflow:hidden;
-
-box-shadow:0 20px 50px rgba(0,0,0,.1);
-
+    width:1000px;
+    min-height:620px;
+    display:flex;
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 25px 60px rgba(15,23,42,0.15);
 }
 
-
-
+/* LEFT PANEL */
 .left-panel{
-
-width:50%;
-
-background:linear-gradient(
-135deg,
-#0F172A,
-#334155
-);
-
-color:white;
-
-padding:60px;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
+    width:45%;
+    background:linear-gradient(
+        135deg,
+        #0F172A,
+        #1E293B,
+        #334155
+    );
+    color:white;
+    padding:60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
 }
 
+.left-panel::before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    background:rgba(255,255,255,0.08);
+    border-radius:50%;
+    top:-80px;
+    right:-80px;
+}
 
+.left-panel::after{
+    content:"";
+    position:absolute;
+    width:200px;
+    height:200px;
+    background:rgba(255,255,255,0.05);
+    border-radius:50%;
+    bottom:-70px;
+    left:-70px;
+}
 
 .left-panel h1{
-
-font-size:40px;
-
-margin-bottom:20px;
-
+    font-size:42px;
+    margin-bottom:20px;
+    position:relative;
+    z-index:2;
 }
-
-
 
 .left-panel p{
-
-color:#CBD5E1;
-
-line-height:1.6;
-
+    color:#CBD5E1;
+    font-size:16px;
+    line-height:1.8;
+    position:relative;
+    z-index:2;
 }
 
-
-
-
+/* RIGHT PANEL */
 .right-panel{
-
-width:50%;
-
-padding:50px;
-
+    width:55%;
+    padding:45px 55px;
+    overflow-y:auto;
+    max-height:620px;
 }
-
-
 
 .form{
-
-display:none;
-
+    display:none;
 }
-
 
 .form.active{
-
-display:block;
-
+    display:block;
 }
-
-
 
 h2{
-
-margin-bottom:25px;
-
-color:#0F172A;
-
+    color:#0F172A;
+    font-size:28px;
+    margin-bottom:30px;
 }
 
-
-
+/* INPUT */
 .input-box{
-
-margin-bottom:15px;
-
+    margin-bottom:16px;
 }
-
-
 
 .input-box input,
 .input-box select{
-
-width:100%;
-
-padding:14px;
-
-border-radius:10px;
-
-border:1px solid #CBD5E1;
-
-outline:none;
-
+    width:100%;
+    padding:14px 16px;
+    border-radius:12px;
+    border:1px solid #CBD5E1;
+    background:#F8FAFC;
+    font-size:15px;
+    outline:none;
+    transition:.3s;
 }
 
+.input-box input:focus,
+.input-box select:focus{
+    border-color:#2563EB;
+    background:white;
+    box-shadow:0 0 0 4px rgba(37,99,235,.1);
+}
 
-
+/* PASSWORD */
 .password-box{
-
-position:relative;
-
+    position:relative;
 }
 
-
+.password-box input{
+    padding-right:50px;
+}
 
 .password-box span{
-
-position:absolute;
-
-right:15px;
-
-top:13px;
-
-cursor:pointer;
-
+    position:absolute;
+    right:16px;
+    top:13px;
+    cursor:pointer;
+    font-size:18px;
+    color:#64748B;
 }
 
+.password-box span:hover{
+    color:#2563EB;
+}
 
-
+/* BUTTON */
 button{
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-border-radius:10px;
-
-background:#2563EB;
-
-color:white;
-
-font-size:16px;
-
-cursor:pointer;
-
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
 }
-
-
 
 button:hover{
-
-background:#1D4ED8;
-
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(37,99,235,.25);
 }
 
-
-
+/* SWITCH LOGIN REGISTER */
 .switch{
-
-text-align:center;
-
-margin-top:20px;
-
+    text-align:center;
+    margin-top:25px;
+    color:#64748B;
 }
-
-
 
 .switch a{
+    color:#2563EB;
+    font-weight:600;
+    cursor:pointer;
+}
 
-color:#2563EB;
+.switch a:hover{
+    text-decoration:underline;
+}
 
-cursor:pointer;
+/* MESSAGE */
+#message{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+}
 
-font-weight:600;
+/* SCROLLBAR */
+.right-panel::-webkit-scrollbar{
+    width:6px;
+}
+
+.right-panel::-webkit-scrollbar-thumb{
+    background:#CBD5E1;
+    border-radius:10px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+    .container{
+        width:90%;
+    }
+
+    .left-panel{
+        display:none;
+    }
+
+    .right-panel{
+        width:100%;
+        padding:40px;
+    }
 
 }
 
+@media(max-width:500px){
 
+    .right-panel{
+        padding:30px 20px;
+    }
 
-#message{
-
-text-align:center;
-
-margin-top:15px;
-
-color:red;
+    h2{
+        font-size:24px;
+    }
 
 }
