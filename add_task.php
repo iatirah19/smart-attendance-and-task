@@ -38,13 +38,19 @@ $username = $_SESSION['username'] ?? "Admin";
                     </div>
                     
                     <div class="form-group">
-                        <label>Department</label>
-                        <select id="department_name" required>
-                            <option value="">Select Department</option>
-                            <option value="IT">IT</option>
-                            <option value="Human Resource">Human Resource</option>
+                        <label>
+                            Department
+                        </label>
+                        <select id="target_role" required>
+                            <option value="">-- Select Department --</option>
+                            <option value="All">All Departments</option>
+                            <option value="HR">Human Resources (HR)</option>
+                            <option value="IT">Information Technology (IT)</option>
                             <option value="Finance">Finance</option>
                             <option value="Marketing">Marketing</option>
+                            <option value="Supply Chain">Supply Chain</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Data Analytics">Data Analytics</option>
                         </select>
                     </div>
                     

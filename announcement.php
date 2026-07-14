@@ -5,36 +5,89 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Manage Announcement</title>
+
     <link rel="stylesheet" href="announcement.css">
     <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
     <div>
-        <?php include 'sidebar.php'; ?>      
-        <main class="main-content">           
+
+        <?php include 'sidebar.php'; ?>
+
+        <main class="main-content">
+
             <button class="menu-toggle" id="toggleBtn">
+
                 <i class="fas fa-bars"></i>
+
             </button>
 
             <!-- Header -->
             <div class="page-header">
+
                 <div>
-                    <h1>Announcement Management</h1>
-                    <p>Manage all company announcements.</p>
+
+                    <h1>
+                        Announcement Management
+                    </h1>
+
+                    <p>
+                        Manage all company announcements.
+                    </p>
+
                 </div>
+
             </div>
 
-            <!-- Search -->
+            <!-- Filter -->
             <div class="top-bar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Search announcement...">
+                <div class="filter-box">
+                    <select id="targetFilter">
+
+                        <option value="all">
+                            All Department
+                        </option>
+            
+                        <option value="hr">
+                            HR
+                        </option>
+            
+                        <option value="it">
+                            IT
+                        </option>
+            
+                        <option value="finance">
+                            Finance
+                        </option>
+            
+                        <option value="marketing">
+                            Marketing
+                        </option>
+            
+                        <option value="supply chain">
+                            Supply Chain
+                        </option>
+            
+                        <option value="maintenance">
+                            Maintenance
+                        </option>
+            
+                        <option value="data analytics">
+                            Data Analytics
+                        </option>
+
+                    </select>
                 </div>
 
                 <a href="add_announcement.php" class="add-btn">
@@ -48,18 +101,41 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>Created By</th>
-                            <th>Target Role</th>
-                            <th>Created At</th>
-                            <th>Action</th>
+
+                            <th>
+                                No
+                            </th>
+
+                            <th>
+                                Title
+                            </th>
+
+                            <th>
+                                Content
+                            </th>
+
+                            <th>
+                                Created By
+                            </th>
+
+                            <th>
+                                Target Role
+                            </th>
+
+                            <th>
+                                Created At
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
                         </tr>
                     </thead>
-
                     <tbody id="announcementTable">
-                        <!-- Firebase -->
+
+                        <!-- Firebase Data -->
+
                     </tbody>
                 </table>
             </div>
@@ -67,4 +143,5 @@
     </div>
     <script type="module" src="announcement.js"></script>
 </body>
+
 </html>

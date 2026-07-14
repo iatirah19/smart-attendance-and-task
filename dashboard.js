@@ -27,124 +27,257 @@ const auth = getAuth();
 
 async function loadAnnouncements(){
 
-    const announcementList =
-    document.getElementById("announcementList");
-
+    const announcementList = document.getElementById("announcementList");
 
     if(!announcementList){
         return;
     }
 
-
     try{
 
-
         const q = query(
-
-            collection(
-                db,
-                "announcements"
-            ),
-
-            orderBy(
-                "created_at",
-                "desc"
-            ),
-
+            collection(db,"announcements"),
+            orderBy("created_at","desc"),
             limit(3)
-
         );
 
-
-        const snapshot =
-        await getDocs(q);
-
-
+        const snapshot = await getDocs(q);
 
         announcementList.innerHTML = "";
 
-
-
         if(snapshot.empty){
 
-
             announcementList.innerHTML = `
-
                 <p>
                     No announcement available.
                 </p>
-
             `;
 
-
             return;
-
         }
-
 
 
         snapshot.forEach((document)=>{
 
-
-            const data =
-            document.data();
-
-
+            const data = document.data();
 
             announcementList.innerHTML += `
 
-
                 <div class="announcement-card">
-
 
                     <h3>
                         ${data.title || "-"}
                     </h3>
 
-
                     <p>
                         ${data.content || "-"}
                     </p>
-
 
                     <small>
                         ${formatDate(data.created_at)}
                     </small>
 
-
                 </div>
 
-
             `;
-
 
         });
 
 
-
     }
     catch(error){
-
 
         console.error(
             "Announcement error:",
             error
         );
 
-
         announcementList.innerHTML = `
-
             <p>
                 Failed to load announcement.
             </p>
-
         `;
-
 
     }
 
 }
 
+
+// =========================
+// LOAD DASHBOARD STATISTIC
+// =========================
+
+async function loadDashboardStats(){
+
+    try{
+
+
+        // =========================
+        // TOTAL STAFF
+        // =========================
+
+        const staffSnapshot = await getDocs(
+            collection(db,"users")
+        );
+
+
+        let totalStaff = 0;
+
+
+        staffSnapshot.forEach((document)=>{
+
+            const data = document.data();
+
+
+            if(data.role === "Staff"){
+
+                totalStaff++;
+
+            }
+
+        });
+
+
+        document.getElementById(
+            "totalStaff"
+        ).textContent = totalStaff;
+
+
+
+        // =========================
+        // TODAY DATE
+        // =========================
+
+        const today = new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+
+        // =========================
+        // ATTENDANCE
+        // =========================
+
+        const attendanceSnapshot = await getDocs(
+            collection(db,"attendance")
+        );
+
+
+        let present = 0;
+        let leave = 0;
+
+        let office = 0;
+        let wfh = 0;
+
+
+
+        attendanceSnapshot.forEach((document)=>{
+
+
+            const data = document.data();
+
+
+            let attendanceDate = "";
+
+
+
+            // jika guna date field
+            if(data.date){
+
+                attendanceDate = data.date;
+
+            }
+
+
+
+            // jika guna timestamp check_in
+            else if(data.check_in && data.check_in.toDate){
+
+                attendanceDate = data.check_in
+                .toDate()
+                .toISOString()
+                .split("T")[0];
+
+            }
+
+
+
+            if(attendanceDate === today){
+
+
+                if(data.status === "present"){
+
+                    present++;
+
+                }
+
+
+                if(data.status === "leave"){
+
+                    leave++;
+
+                }
+
+
+
+                if(data.work_mode === "office"){
+
+                    office++;
+
+                }
+
+
+
+                if(data.work_mode === "wfh"){
+
+                    wfh++;
+
+                }
+
+            }
+
+
+        });
+
+
+
+        document.getElementById(
+            "presentToday"
+        ).textContent = present;
+
+
+        document.getElementById(
+            "leaveToday"
+        ).textContent = leave;
+
+
+        document.getElementById(
+            "officeMode"
+        ).textContent = office;
+
+
+        document.getElementById(
+            "wfhMode"
+        ).textContent = wfh;
+
+
+        document.getElementById(
+            "leaveMode"
+        ).textContent = leave;
+
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Dashboard statistic error:",
+            error
+        );
+
+    }
+
+}
 
 
 // =========================
@@ -152,7 +285,6 @@ async function loadAnnouncements(){
 // =========================
 
 function formatDate(timestamp){
-
 
     if(!timestamp){
 
@@ -175,8 +307,6 @@ function formatDate(timestamp){
 }
 
 
-
-
 // =========================
 // AUTH CHECK
 // =========================
@@ -185,13 +315,8 @@ onAuthStateChanged(
 auth,
 async(user)=>{
 
-
     try{
 
-
-        // =========================
-        // CHECK LOGIN
-        // =========================
 
         if(!user){
 
@@ -203,26 +328,18 @@ async(user)=>{
 
 
 
-        // =========================
-        // GET USER DATA
-        // =========================
-
-
-        const userRef =
-        doc(
+        const userRef = doc(
             db,
             "users",
             user.uid
         );
 
 
-        const userSnap =
-        await getDoc(userRef);
+        const userSnap = await getDoc(userRef);
 
 
 
         if(!userSnap.exists()){
-
 
             window.location.href="auth.php";
 
@@ -232,15 +349,8 @@ async(user)=>{
 
 
 
-        const userData =
-        userSnap.data();
+        const userData = userSnap.data();
 
-
-
-
-        // =========================
-        // ADMIN CHECK
-        // =========================
 
 
         if(userData.role !== "admin"){
@@ -253,24 +363,15 @@ async(user)=>{
 
             window.location.href="auth.php";
 
-
             return;
 
         }
 
 
 
-
-        // =========================
-        // DISPLAY ADMIN NAME
-        // =========================
-
-
-        const adminName =
-        document.getElementById(
+        const adminName = document.getElementById(
             "adminName"
         );
-
 
 
         if(adminName){
@@ -282,21 +383,12 @@ async(user)=>{
 
 
 
-
-
-        // =========================
-        // SHOW DASHBOARD
-        // =========================
-
-
-        const loading =
-        document.getElementById(
+        const loading = document.getElementById(
             "loading"
         );
 
 
-        const dashboardContent =
-        document.getElementById(
+        const dashboardContent = document.getElementById(
             "dashboardContent"
         );
 
@@ -304,28 +396,22 @@ async(user)=>{
 
         if(loading){
 
-            loading.style.display =
-            "none";
+            loading.style.display = "none";
 
         }
-
 
 
         if(dashboardContent){
 
-            dashboardContent.style.display =
-            "block";
+            dashboardContent.style.display = "block";
 
         }
 
 
 
-
-        // =========================
-        // LOAD ANNOUNCEMENT
-        // =========================
-
         loadAnnouncements();
+
+        loadDashboardStats();
 
 
 
@@ -341,8 +427,6 @@ async(user)=>{
 
         window.location.href="auth.php";
 
-
     }
-
 
 });

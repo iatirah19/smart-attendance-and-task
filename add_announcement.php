@@ -37,13 +37,19 @@ $adminName = $_SESSION['username'] ?? 'Admin';
                     </div>
                     
                     <div class="form-group">
-                        <label>Target Role</label>
-                        <select id="target_role">
-                            <option value="All Staff">All Staff</option>
-                            <option value="Admin">Admin</option>
-                            <option value="HR">HR</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Staff">Staff</option>
+                        <label>
+                            Target Department
+                        </label>
+                        <select id="target_role" required>
+                            <option value="">-- Select Department --</option>
+                            <option value="All">All Departments</option>
+                            <option value="HR">Human Resources (HR)</option>
+                            <option value="IT">Information Technology (IT)</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Supply Chain">Supply Chain</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Data Analytics">Data Analytics</option>
                         </select>
                     </div>
                 

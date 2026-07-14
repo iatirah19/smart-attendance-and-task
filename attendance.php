@@ -26,18 +26,10 @@
     </div>
 
     <div class="top-bar">
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Search attendance...">
-        </div>
-
         <div class="filter-box">
             <select id="workModeFilter">
-                <option value="">
-                    All Work Mode
+                <option value="all">
+                    All
                 </option>
     
                 <option value="Office">

@@ -13,7 +13,7 @@ from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 // ================= ELEMENT =================
 
 const tbody = document.getElementById("announcementTable");
-const searchInput = document.getElementById("searchInput");
+const targetFilter = document.getElementById("targetFilter");
 
 let announcementData = [];
 
@@ -154,7 +154,8 @@ async function createRow(no,id,data){
 
     const tr = document.createElement("tr");
 
-    const createdByName = "-";
+    const createdByName =
+    await getCreatedByName(data.created_by);
 
     tr.innerHTML = `
         <td>${no}</td>
@@ -164,10 +165,6 @@ async function createRow(no,id,data){
         <td>${data.target_role || "-"}</td>
         <td>${formatDate(data.created_at)}</td>
         <td>
-            <button class="action-btn edit" data-id="${id}">
-                <i class="fas fa-edit"></i>
-            </button>
-
             <button class="action-btn delete" data-id="${id}">
                 <i class="fas fa-trash"></i>
             </button>
@@ -175,16 +172,6 @@ async function createRow(no,id,data){
     `;
 
     return tr;
-}
-
-
-// ================= EDIT =================
-
-function editAnnouncement(id){
-
-    window.location.href =
-    "edit_announcement.php?id=" + id;
-
 }
 
 
@@ -284,69 +271,28 @@ if(tbody){
 
 }
 
+// ================= FILTER =================
 
-// ================= SEARCH =================
+if(targetFilter){
 
-if(searchInput){
-
-    searchInput.addEventListener(
-        "keyup",
+    targetFilter.addEventListener(
+        "change",
         async()=>{
 
-
-            const keyword =
-            searchInput.value.toLowerCase();
-
-
+            const selected =
+            targetFilter.value.toLowerCase();
 
             tbody.innerHTML = "";
 
-
-
             let no = 1;
-
-
 
             for(const item of announcementData){
 
-
-                const createdBy =
-                await getCreatedByName(
-                    item.created_by
-                );
-
-
-                const match =
-
-                (item.title || "")
-                .toLowerCase()
-                .includes(keyword)
-
-
-                ||
-
-                (item.content || "")
-                .toLowerCase()
-                .includes(keyword)
-
-
-                ||
-
-                createdBy
-                .toLowerCase()
-                .includes(keyword)
-
-
-                ||
-
+                const role =
                 (item.target_role || "")
-                .toLowerCase()
-                .includes(keyword);
+                .toLowerCase();
 
-
-
-                if(match){
-
+                if(selected === "all" || role === selected){
 
                     const row =
                     await createRow(
@@ -355,9 +301,7 @@ if(searchInput){
                         item
                     );
 
-
                     tbody.appendChild(row);
-
 
                     no++;
 
@@ -365,12 +309,22 @@ if(searchInput){
 
             }
 
+            if(no === 1){
+
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            No announcement found.
+                        </td>
+                    </tr>
+                `;
+
+            }
 
         }
     );
 
 }
-
 
 // ================= START =================
 
