@@ -3,86 +3,220 @@ import { db } from "../firebase-config.js";
 import {
     collection,
     getDocs
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+
+// ================= ELEMENT =================
 
 const tbody = document.getElementById("attendanceTable");
 
+const searchInput = document.getElementById("searchInput");
+
+const workModeFilter = document.getElementById("workModeFilter");
+
+
+// ================= DATA =================
+
+let attendanceData = [];
+
+// ================= LOAD ATTENDANCE =================
+
 async function loadAttendance(){
+
+    try{
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    Loading attendance...
+                </td>
+            </tr>
+        `;
+
+        const snapshot = await getDocs(
+            collection(db,"attendance")
+        );
+
+        attendanceData = [];
+
+        snapshot.forEach((doc)=>{
+
+            attendanceData.push({
+
+                id: doc.id,
+                ...doc.data()
+
+            });
+
+        });
+
+        displayAttendance(attendanceData);
+
+    }
+
+    catch(error){
+        console.error(
+            "Error loading attendance:",
+            error
+        );
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    Failed to load attendance
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// ================= DISPLAY TABLE =================
+function displayAttendance(data){
 
     tbody.innerHTML = "";
 
-    const querySnapshot = await getDocs(
-        collection(db,"attendance")
-    );
+    if(data.length === 0){
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    No attendance record found
+                </td>
+            </tr>
+        `;
+        return;
+    }
 
-    querySnapshot.forEach((doc)=>{
+    data.forEach(attendance=>{
 
-        const data = doc.data();
+        let badge;
 
-        let badge = "";
+        switch(attendance.status){
+            case "Checked In":
+                badge = `
+                    <span class="status checked-in">
+                        Checked In
+                    </span>
+                `;
+            break;
 
-        if(data.status === "Checked In"){
+            case "Checked Out":
+                badge = `
+                    <span class="status checked-out">
+                        Checked Out
+                    </span>
+                `;
+            break;
 
-            badge = `<span class="status checked-in">${data.status}</span>`;
-
-        }
-        else if(data.status === "Checked Out"){
-
-            badge = `<span class="status checked-out">${data.status}</span>`;
-
-        }
-        else{
-
-            badge = `<span class="status leave">${data.status}</span>`;
-
+            default:
+                badge = `
+                    <span class="status leave">
+                        ${attendance.status ?? "-"}
+                    </span>
+                `;
         }
 
         tbody.innerHTML += `
-            <tr>
-                <td>${data.staffName}</td>
-                <td>${data.date}</td>
-                <td>${data.checkIn || "-"}</td>
-                <td>${data.checkOut || "-"}</td>
-                <td>${data.workMode}</td>
-                <td>${data.reason || "-"}</td>
-                <td>${badge}</td>
-            </tr>
+        <tr>
+
+            <td>
+                ${attendance.staffName ?? "-"}
+            </td>
+
+            <td>
+                ${attendance.date ?? "-"}
+            </td>
+
+            <td>
+                ${attendance.checkIn ?? "-"}
+            </td>
+
+            <td>
+                ${attendance.checkOut ?? "-"}
+            </td>
+
+            <td>
+                ${attendance.workMode ?? "-"}
+            </td>
+
+            <td>
+                ${attendance.reason ?? "-"}
+            </td>
+
+            <td>
+                ${badge}
+            </td>
+        </tr>
         `;
 
     });
 
 }
 
-loadAttendance();
+// ================= SEARCH + FILTER =================
+function filterAttendance(){
 
+    const keyword =
+    searchInput.value
+    .toLowerCase()
+    .trim();
 
-// SEARCH
+    const selectedMode =
+    workModeFilter.value;
 
-const search = document.getElementById("searchInput");
+    const filtered =
+    attendanceData.filter(attendance=>{
 
-search.addEventListener("keyup",()=>{
+        const searchText = `
 
-    const value = search.value.toLowerCase();
+            ${attendance.staffName ?? ""}
 
-    const rows = document.querySelectorAll("#attendanceTable tr");
+            ${attendance.date ?? ""}
 
-    rows.forEach(row=>{
+            ${attendance.workMode ?? ""}
 
-        const text = row.innerText.toLowerCase();
+            ${attendance.status ?? ""}
 
-        row.style.display = text.includes(value) ? "" : "none";
+        `
+        .toLowerCase();
+
+        const matchSearch =
+        searchText.includes(keyword);
+
+        const matchMode =
+        selectedMode === "all" ||
+
+        attendance.workMode === selectedMode;
+
+        return (
+            matchSearch &&
+            matchMode
+        );
 
     });
 
-});
+    displayAttendance(filtered);
+}
 
+// ================= EVENT LISTENER =================
+if(searchInput){
 
-// SIDEBAR TOGGLE
+    searchInput.addEventListener(
+        "input",
+        filterAttendance
+    );
 
-const toggle = document.getElementById("toggleSidebar");
+}
 
-toggle.addEventListener("click",()=>{
+if(workModeFilter){
 
-    document.body.classList.toggle("sidebar-close");
+    workModeFilter.addEventListener(
+        "change",
+        filterAttendance
+    );
 
-});
+}
+
+// ================= START =================
+
+loadAttendance();

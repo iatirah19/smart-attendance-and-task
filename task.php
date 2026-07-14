@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="dashboard-container">
+    <div>
         <?php include "sidebar.php"; ?>
         <div class="main-content">
             <button class="menu-toggle" id="toggleBtn">
@@ -29,28 +29,32 @@
                     <input 
                         type="text" id="searchTask" placeholder="Search task...">
                 </div>
-    
-                <select id="departmentFilter">
-                    <option value="all">All Department</option>
-                    <option value="IT">IT</option>
-                    <option value="Finance">Finance</option>
-                    <option value="HR">HR</option>
-                    <option value="Marketing">Marketing</option>
-                </select>
-    
-                <select id="statusFilter">
-                    <option value="all">All Status</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
-                </select>
-    
+
+                <div class="filter-box">
+                    <select id="departmentFilter">
+                        <option value="all">All Department</option>
+                        <option value="IT">IT</option>
+                        <option value="Finance">Finance</option>
+                        <option value="HR">HR</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                </div>
+
+                <div class="filter-box">
+                    <select id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
                 <a href="add_task.php" class="add-btn">
                     <i class="fas fa-plus"></i>
                     Add Task
                 </a>
             </div>
     
-            <div class="table-container">
+            <div class="table-card">
                 <table>
                     <thead>
                         <tr>

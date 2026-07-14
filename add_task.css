@@ -39,7 +39,6 @@ body{
 .form-container{
     background:white;
     padding:35px;
-    max-width:900px;
     border-radius:16px;
     box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
@@ -119,7 +118,7 @@ body{
 }
 
 .save-btn:hover{
-    background:#334155;
+    background:#1e293b;
 }
 
 .cancel-btn{
