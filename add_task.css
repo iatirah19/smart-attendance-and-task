@@ -1,0 +1,151 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:#F8FAFC;
+}
+
+/* ================= MAIN LAYOUT ================= */
+.dashboard-container{
+    display:flex;
+    min-height:100vh;
+}
+
+.main-content{
+    flex:1;
+    padding:30px;
+    transition:.3s ease;
+}
+
+/* ================= PAGE HEADER ================= */
+.page-header h1{
+    font-size:38px;
+    font-weight:700;
+    color:#0F172A;
+    margin-bottom:8px;
+}
+
+.page-header p{
+    color:#64748B;
+    font-size:15px;
+    margin-bottom:30px;
+}
+
+/* ================= FORM CONTAINER ================= */
+.form-container{
+    background:white;
+    padding:35px;
+    max-width:900px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* ================= FORM GROUP ================= */
+
+.form-group{
+    width:100%;
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:600;
+    color:#334155;
+    margin-bottom:8px;
+}
+
+/* ================= INPUT ================= */
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    height:45px;
+    padding:12px 15px;
+    border:1px solid #CBD5E1;
+    border-radius:10px;
+    font-size:14px;
+    outline:none;
+    transition:.3s;
+    background:white;
+}
+
+.form-group textarea{
+    height:120px;
+    resize:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#0F172A;
+    box-shadow:0 0 0 3px rgba(15,23,42,0.1);
+}
+
+/* ================= TWO COLUMN ================= */
+.form-row{
+    display:flex;
+    gap:20px;
+}
+
+.form-row .form-group{
+    flex:1;
+}
+
+/* ================= BUTTON ================= */
+.button-group{
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+    margin-top:30px;
+}
+
+.save-btn,
+.cancel-btn{
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    font-size:14px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.save-btn{
+    background:#0F172A;
+    color:white;
+}
+
+.save-btn:hover{
+    background:#334155;
+}
+
+.cancel-btn{
+    background:#E2E8F0;
+    color:#334155;
+}
+
+.cancel-btn:hover{
+    background:#CBD5E1;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+    .main-content{
+        padding:20px;
+    }
+
+    .form-container{
+        padding:20px;
+    }
+
+    .form-row{
+        flex-direction:column;
+    }
+
+}

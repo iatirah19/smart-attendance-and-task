@@ -17,8 +17,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             🏠 Dashboard
         </a>
 
-        <a href="manage_task.php"
-            class="<?= ($currentPage == 'manage_task.php') ? 'active' : '' ?>">
+        <a href="task.php"
+            class="<?= ($currentPage == 'task.php') ? 'active' : '' ?>">
             📋 Manage Tasks
         </a>
 
