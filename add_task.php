@@ -17,8 +17,6 @@ $username = $_SESSION['username'] ?? "Admin";
 <body>
     <div class="dashboard-container">
 
-        <?php include "sidebar.php"; ?>
-
         <div class="main-content">
 
             <div class="page-header">

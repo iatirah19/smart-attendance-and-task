@@ -1,0 +1,152 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:#F8FAFC;
+}
+
+/* ================= MAIN LAYOUT ================= */
+.dashboard-container{
+    display:flex;
+    min-height:100vh;
+}
+
+.main-content{
+    flex:1;
+    padding:30px;
+    transition:.3s ease;
+}
+
+/* ================= PAGE HEADER ================= */
+.page-header h1{
+    font-size:38px;
+    font-weight:700;
+    color:#0F172A;
+    margin-bottom:8px;
+}
+
+.page-header p{
+    color:#64748B;
+    font-size:15px;
+    margin-bottom:30px;
+}
+
+/* ================= FORM CARD ================= */
+
+.form-card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+/* ================= FORM ================= */
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:22px;
+}
+
+.form-group label{
+    font-weight:600;
+    margin-bottom:8px;
+    color:#1e293b;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #CBD5E1;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+    transition:.2s;
+    background:white;
+}
+
+.form-group textarea{
+    resize:vertical;
+    min-height:180px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#16213e;
+    box-shadow:0 0 0 3px rgba(22,33,62,.15);
+}
+
+/* ================= BUTTON ================= */
+
+.button-group{
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+    margin-top:35px;
+}
+
+.cancel-btn{
+    text-decoration:none;
+    background:#E2E8F0;
+    color:#334155;
+    padding:12px 24px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.cancel-btn:hover{
+    background:#CBD5E1;
+}
+
+.save-btn{
+    border:none;
+    background:#16213e;
+    color:white;
+    padding:12px 24px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.save-btn:hover{
+    background:#22335d;
+}
+
+.save-btn i{
+    margin-right:8px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+    .main-content{
+        margin-left:0;
+        padding:20px;
+    }
+
+    .form-card{
+        padding:20px;
+    }
+
+    .button-group{
+        flex-direction:column;
+    }
+
+    .cancel-btn,
+    .save-btn{
+        width:100%;
+        text-align:center;
+    }
+
+}

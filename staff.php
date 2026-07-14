@@ -22,7 +22,7 @@
         <main class="main-content">
 
             <!-- Menu Toggle -->
-            <button class="menu-toggle" id="menuToggle">
+            <button class="menu-toggle" id="toggleBtn">
                 <i class="fas fa-bars"></i>
             </button>
 
