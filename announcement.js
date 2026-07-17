@@ -237,25 +237,8 @@ if(tbody){
         "click",
         (e)=>{
 
-
-            const editBtn =
-            e.target.closest(".edit");
-
-
             const deleteBtn =
             e.target.closest(".delete");
-
-
-
-            if(editBtn){
-
-                editAnnouncement(
-                    editBtn.dataset.id
-                );
-
-            }
-
-
 
             if(deleteBtn){
 

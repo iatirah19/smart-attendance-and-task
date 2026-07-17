@@ -52,8 +52,6 @@ function formatTime(timestamp){
 
 }
 
-
-
 // ================= LOAD ATTENDANCE =================
 
 async function loadAttendance(){
@@ -185,15 +183,11 @@ async function loadAttendance(){
 
 }
 
-
-
-
 // ================= DISPLAY TABLE =================
 
 function displayAttendance(data){
 
     tbody.innerHTML = "";
-
 
     if(data.length === 0){
 
@@ -209,16 +203,11 @@ function displayAttendance(data){
 
     }
 
-
-
     data.forEach(attendance=>{
-
 
         let badge;
 
-
         switch(attendance.status){
-
 
             case "Checked In":
 
@@ -230,8 +219,6 @@ function displayAttendance(data){
 
             break;
 
-
-
             case "Checked Out":
 
                 badge = `
@@ -242,8 +229,6 @@ function displayAttendance(data){
 
             break;
 
-
-
             default:
 
                 badge = `
@@ -253,8 +238,6 @@ function displayAttendance(data){
                 `;
 
         }
-
-
 
         tbody.innerHTML += `
 
@@ -294,35 +277,24 @@ function displayAttendance(data){
                 ${badge}
             </td>
 
-
         </tr>
 
         `;
 
-
     });
 
-
 }
-
-
-
-
 
 // ================= FILTER WORK MODE =================
 
 function filterAttendance(){
 
-
     const selectedMode =
     workModeFilter.value
     .toLowerCase();
 
-
-
     const filtered =
     attendanceData.filter(attendance=>{
-
 
         const matchMode =
         selectedMode === "all" ||
@@ -332,26 +304,15 @@ function filterAttendance(){
         .toLowerCase()
         .trim() === selectedMode;
 
-
-
         return matchMode;
-
 
     });
 
-
-
     displayAttendance(filtered);
-
 
 }
 
-
-
-
-
 // ================= EVENT LISTENER =================
-
 
 if(workModeFilter){
 
@@ -361,8 +322,6 @@ if(workModeFilter){
     );
 
 }
-
-
 
 // ================= START =================
 

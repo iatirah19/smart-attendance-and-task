@@ -3,20 +3,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Manage Announcement</title>
-
+    <title>Manage Announcement - Work Pulse</title>
     <link rel="stylesheet" href="announcement.css">
     <link rel="stylesheet" href="sidebar.css">
-
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -54,39 +47,14 @@
             <div class="top-bar">
                 <div class="filter-box">
                     <select id="targetFilter">
-
-                        <option value="all">
-                            All Department
-                        </option>
-            
-                        <option value="hr">
-                            HR
-                        </option>
-            
-                        <option value="it">
-                            IT
-                        </option>
-            
-                        <option value="finance">
-                            Finance
-                        </option>
-            
-                        <option value="marketing">
-                            Marketing
-                        </option>
-            
-                        <option value="supply chain">
-                            Supply Chain
-                        </option>
-            
-                        <option value="maintenance">
-                            Maintenance
-                        </option>
-            
-                        <option value="data analytics">
-                            Data Analytics
-                        </option>
-
+                            <option value="all">All Departments</option>
+                            <option value="Human Resources (HR)">Human Resources (HR)</option>
+                            <option value="Information Technology (IT)">Information Technology (IT)</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Supply Chain">Supply Chain</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Data Analytics">Data Analytics</option>
                     </select>
                 </div>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Task</title>
+    <title>Manage Task - Work Pulse</title>
     <link rel="stylesheet" href="task.css">
     <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -32,11 +32,14 @@
 
                 <div class="filter-box">
                     <select id="departmentFilter">
-                        <option value="all">All Department</option>
-                        <option value="IT">IT</option>
+                        <option value="all">All Departments</option>
+                        <option value="Human Resources (HR)">Human Resources (HR)</option>
+                        <option value="Information Technology (IT)">Information Technology (IT)</option>
                         <option value="Finance">Finance</option>
-                        <option value="HR">HR</option>
                         <option value="Marketing">Marketing</option>
+                        <option value="Supply Chain">Supply Chain</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Data Analytics">Data Analytics</option>
                     </select>
                 </div>
 

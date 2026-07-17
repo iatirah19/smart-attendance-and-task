@@ -205,14 +205,14 @@ async function loadDashboardStats(){
             if(attendanceDate === today){
 
 
-                if(data.status === "present"){
+                if(data.status === "Checked In"){
 
                     present++;
 
                 }
 
 
-                if(data.status === "leave"){
+                if(data.status === "Leave"){
 
                     leave++;
 
@@ -220,7 +220,7 @@ async function loadDashboardStats(){
 
 
 
-                if(data.work_mode === "office"){
+                if(data.work_mode === "Office"){
 
                     office++;
 
@@ -228,7 +228,7 @@ async function loadDashboardStats(){
 
 
 
-                if(data.work_mode === "wfh"){
+                if(data.work_mode === "WFH"){
 
                     wfh++;
 
@@ -377,7 +377,7 @@ async(user)=>{
         if(adminName){
 
             adminName.textContent =
-            userData.name || "Admin";
+            userData.username || "Admin";
 
         }
 

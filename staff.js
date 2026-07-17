@@ -1,6 +1,4 @@
-/* ===================================
-   FIREBASE IMPORT
-=================================== */
+console.log("staff.js loaded");
 
 import { db } from "./firebase-config.js";
 
@@ -9,25 +7,18 @@ import {
     getDocs,
     deleteDoc,
     doc
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-/* ===================================
-   LOAD STAFF
-=================================== */
-
-const staffContainer = document.querySelector(".main-content");
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 let allStaff = [];
 
 
+// LOAD STAFF
 async function loadStaff(){
 
     try{
 
-        const querySnapshot = await getDocs(
+        const snapshot = await getDocs(
             collection(db,"users")
         );
 
@@ -35,20 +26,32 @@ async function loadStaff(){
         allStaff = [];
 
 
-        querySnapshot.forEach((item)=>{
+        snapshot.forEach((item)=>{
+
 
             const data = item.data();
 
 
-            // hanya ambil staff sahaja
-            if(data.role === "staff"){
+            // ambil staff sahaja
+            if(data.role === "Staff"){
+
 
                 allStaff.push({
 
-                    id:item.id,
-                    ...data
+                    id: item.id,
+
+                    staff_id: data.staff_id ?? "-",
+
+                    display_name: data.display_name ?? "-",
+
+                    email: data.email ?? "-",
+
+                    department_name: data.department_name ?? "-",
+
+                    position: data.position ?? "-"
 
                 });
+
 
             }
 
@@ -56,11 +59,14 @@ async function loadStaff(){
         });
 
 
+
+        console.log("Staff List:", allStaff);
+
+
         displayStaff(allStaff);
 
 
     }
-
     catch(error){
 
         console.error(
@@ -74,188 +80,120 @@ async function loadStaff(){
 
 
 
-/* ===================================
-   DISPLAY STAFF BY DEPARTMENT
-=================================== */
-
+// DISPLAY STAFF TABLE
 function displayStaff(staffList){
 
 
-    const tableArea = document.querySelector(
-        ".staff-list"
-    );
+    const table =
+    document.getElementById("staffTable");
 
 
-    if(!tableArea) return;
+    if(!table) return;
 
 
-    tableArea.innerHTML = "";
+    table.innerHTML = "";
 
 
-    const departmentGroup = {};
+    if(staffList.length === 0){
 
+        table.innerHTML = `
 
-    staffList.forEach(staff=>{
+        <tr>
 
+            <td colspan="7"
+            style="text-align:center">
 
-        const department =
-        staff.department || "No Department";
+                No staff record found
 
+            </td>
 
-        if(!departmentGroup[department]){
+        </tr>
 
-            departmentGroup[department]=[];
+        `;
 
-        }
+        return;
 
+    }
 
-        departmentGroup[department].push(staff);
 
 
-    });
+    staffList.forEach((staff)=>{
 
 
+        table.innerHTML += `
 
-    Object.keys(departmentGroup).forEach(department=>{
+        <tr>
 
+            <td>
+                ${users.staff_id ?? "-"}
+            </td>
 
-        let rows="";
 
+            <td>
+                ${users.display_name ?? "-"}
+            </td>
 
-        departmentGroup[department]
-        .forEach(staff=>{
 
+            <td>
+                ${users.email ?? "-"}
+            </td>
 
-            rows += `
 
-            <tr>
+            <td>
+                ${users.department_name ?? "-"}
+            </td>
 
-                <td>${staff.staff_id ?? "-"}</td>
 
-                <td>${staff.name ?? "-"}</td>
+            <td>
+                ${users.position ?? "-"}
+            </td>
 
-                <td>${staff.position ?? "-"}</td>
 
-                <td>${staff.email ?? "-"}</td>
+            <td>
 
-
-                <td>
-
-                    <span class="status ${staff.status}">
-
-                        ${staff.status ?? "Inactive"}
-
-                    </span>
-
-                </td>
-
-
-                <td>
-
-
-                    <button 
-                    class="action-btn view"
-                    data-id="${staff.id}">
-
-                        <i class="fas fa-eye"></i>
-
-                    </button>
-
-
-                    <button 
-                    class="action-btn edit"
-                    data-id="${staff.id}">
-
-                        <i class="fas fa-edit"></i>
-
-                    </button>
-
-
-                    <button 
-                    class="action-btn delete"
-                    data-id="${staff.id}">
-
-                        <i class="fas fa-trash"></i>
-
-                    </button>
-
-
-                </td>
-
-
-            </tr>
-
-            `;
-
-
-        });
-
-
-
-        tableArea.innerHTML += `
-
-
-        <div class="department-section">
-
-
-            <div class="department-title">
-
-
-                <h2>
-                    ${department}
-                </h2>
-
-
-                <span class="staff-count">
-
-                    ${departmentGroup[department].length}
-                    Staff
-
+                <span class="status active">
+                    Active
                 </span>
 
-
-            </div>
-
+            </td>
 
 
-            <div class="table-card">
+            <td>
 
 
-                <table>
+                <button 
+                class="action-btn view"
+                data-id="${staff.id}">
 
+                    <i class="fas fa-eye"></i>
 
-                <thead>
-
-                    <tr>
-
-                        <th>Staff ID</th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
+                </button>
 
 
 
-                <tbody>
+                <button 
+                class="action-btn edit"
+                data-id="${staff.id}">
 
-                    ${rows}
+                    <i class="fas fa-edit"></i>
 
-                </tbody>
-
-
-                </table>
-
-
-            </div>
+                </button>
 
 
-        </div>
 
+                <button 
+                class="action-btn delete"
+                data-id="${staff.id}">
+
+                    <i class="fas fa-trash"></i>
+
+                </button>
+
+
+            </td>
+
+
+        </tr>
 
         `;
 
@@ -263,18 +201,14 @@ function displayStaff(staffList){
     });
 
 
-
     addActionEvents();
+
 
 }
 
 
 
-/* ===================================
-   SEARCH STAFF
-=================================== */
-
-
+// SEARCH STAFF
 const searchInput =
 document.getElementById("searchInput");
 
@@ -282,212 +216,214 @@ document.getElementById("searchInput");
 if(searchInput){
 
 
-searchInput.addEventListener(
-"keyup",
-()=>{
+    searchInput.addEventListener(
+    "keyup",
+    ()=>{
 
 
-    const keyword =
-    searchInput.value.toLowerCase();
+        const keyword =
+        searchInput.value.toLowerCase();
 
 
-    const filtered =
-    allStaff.filter(staff=>{
+
+        const filtered =
+        allStaff.filter((staff)=>{
 
 
-        return (
+            return (
 
-        staff.name
-        ?.toLowerCase()
-        .includes(keyword)
+                staff.display_name
+                ?.toLowerCase()
+                .includes(keyword)
 
-        ||
 
-        staff.staff_id
-        ?.toLowerCase()
-        .includes(keyword)
+                ||
 
-        ||
+                staff.staff_id
+                ?.toLowerCase()
+                .includes(keyword)
 
-        staff.department
-        ?.toLowerCase()
-        .includes(keyword)
 
-        );
+                ||
+
+                staff.email
+                ?.toLowerCase()
+                .includes(keyword)
+
+
+                ||
+
+                staff.department_name
+                ?.toLowerCase()
+                .includes(keyword)
+
+            );
+
+
+        });
+
+
+
+        displayStaff(filtered);
+
+
+    });
+
+
+}
+
+
+
+// FILTER DEPARTMENT
+const departmentFilter =
+document.getElementById("departmentFilter");
+
+
+if(departmentFilter){
+
+
+    departmentFilter.addEventListener(
+    "change",
+    ()=>{
+
+
+        const value =
+        departmentFilter.value;
+
+
+
+        if(value === "all"){
+
+
+            displayStaff(allStaff);
+
+
+        }
+        else{
+
+
+            const filtered =
+            allStaff.filter(
+                staff =>
+                staff.department_name === value
+            );
+
+
+            displayStaff(filtered);
+
+
+        }
+
+
+    });
+
+
+}
+
+
+
+// BUTTON ACTION
+function addActionEvents(){
+
+
+
+    // DELETE
+
+    document.querySelectorAll(".delete")
+    .forEach(button=>{
+
+
+        button.onclick = async()=>{
+
+
+            const id =
+            button.dataset.id;
+
+
+
+            if(confirm("Delete this staff?")){
+
+
+                await deleteDoc(
+                    doc(db,"users",id)
+                );
+
+
+                loadStaff();
+
+
+            }
+
+
+        };
 
 
     });
 
 
 
-    displayStaff(filtered);
+    // VIEW
+
+    document.querySelectorAll(".view")
+    .forEach(button=>{
 
 
-});
+        button.onclick = ()=>{
+
+
+            const staff =
+            allStaff.find(
+                item =>
+                item.id === button.dataset.id
+            );
+
+
+
+            alert(`
+
+Name: ${staff.display_name}
+
+Staff ID: ${staff.staff_id}
+
+Email: ${staff.email}
+
+Department: ${staff.department_name}
+
+Position: ${staff.position}
+
+            `);
+
+
+        };
+
+
+    });
+
+
+
+    // EDIT
+
+    document.querySelectorAll(".edit")
+    .forEach(button=>{
+
+
+        button.onclick = ()=>{
+
+
+            alert(
+                "Open Edit Staff Form"
+            );
+
+
+        };
+
+
+    });
 
 
 }
 
 
 
-/* ===================================
-   FILTER DEPARTMENT
-=================================== */
-
-
-const departmentFilter =
-document.getElementById(
-"departmentFilter"
-);
-
-
-
-if(departmentFilter){
-
-
-departmentFilter.addEventListener(
-"change",
-()=>{
-
-
-    const value =
-    departmentFilter.value;
-
-
-
-    if(value==="all"){
-
-        displayStaff(allStaff);
-
-    }
-
-    else{
-
-
-        const filtered =
-        allStaff.filter(
-        staff =>
-        staff.department === value
-        );
-
-
-        displayStaff(filtered);
-
-
-    }
-
-
-
-});
-
-
-}
-
-
-
-/* ===================================
-   BUTTON ACTION
-=================================== */
-
-
-function addActionEvents(){
-
-
-document.querySelectorAll(".delete")
-.forEach(button=>{
-
-
-button.onclick = async()=>{
-
-
-    const id =
-    button.dataset.id;
-
-
-
-    if(confirm(
-    "Delete this staff?"
-    )){
-
-
-        await deleteDoc(
-            doc(db,"users",id)
-        );
-
-
-        loadStaff();
-
-
-    }
-
-
-};
-
-
-});
-
-
-
-document.querySelectorAll(".view")
-.forEach(button=>{
-
-
-button.onclick=()=>{
-
-
-    const id =
-    button.dataset.id;
-
-
-    const staff =
-    allStaff.find(
-    item=>item.id===id
-    );
-
-
-    alert(
-    `
-    Name: ${staff.name}
-    Staff ID: ${staff.staff_id}
-    Department: ${staff.department}
-    Position: ${staff.position}
-    `
-    );
-
-
-};
-
-
-});
-
-
-
-document.querySelectorAll(".edit")
-.forEach(button=>{
-
-
-button.onclick=()=>{
-
-
-    alert(
-    "Open Edit Staff Form"
-    );
-
-
-};
-
-
-});
-
-
-}
-
-
-
-
-/* ===================================
-   START
-=================================== */
-
-
+// START
 loadStaff();

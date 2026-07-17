@@ -7,18 +7,15 @@ $adminName = $_SESSION['username'] ?? 'Admin';
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Announcement</title>
+    <title>Add Announcement - Work Pulse</title>
     <link rel="stylesheet" href="add_announcement.css">
-    <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
-
     <div class="dashboard-container">
         <main class="main-content">
 
@@ -42,9 +39,9 @@ $adminName = $_SESSION['username'] ?? 'Admin';
                         </label>
                         <select id="target_role" required>
                             <option value="">-- Select Department --</option>
-                            <option value="All">All Departments</option>
-                            <option value="HR">Human Resources (HR)</option>
-                            <option value="IT">Information Technology (IT)</option>
+                            <option value="all">All Departments</option>
+                            <option value="Human Resources (HR)">Human Resources (HR)</option>
+                            <option value="Information Technology (IT)">Information Technology (IT)</option>
                             <option value="Finance">Finance</option>
                             <option value="Marketing">Marketing</option>
                             <option value="Supply Chain">Supply Chain</option>
