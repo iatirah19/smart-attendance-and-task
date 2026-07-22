@@ -93,19 +93,11 @@ function displayTask(data){
 
         }
 
-        else if(task.status === "In Progress"){
-
-            statusClass = "progress";
-
-        }
-
         else if(task.status === "Completed"){
 
             statusClass = "completed";
 
         }
-
-
 
         table.innerHTML += `
 

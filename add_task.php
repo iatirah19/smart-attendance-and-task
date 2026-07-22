@@ -40,11 +40,11 @@ $username = $_SESSION['username'] ?? "Admin";
                         <label>
                             Department
                         </label>
-                        <select id="target_role" required>
+                        <select id="departmentDropdown" required>
                             <option value="">-- Select Department --</option>
-                            <option value="All">All Departments</option>
-                            <option value="HR">Human Resources (HR)</option>
-                            <option value="IT">Information Technology (IT)</option>
+                            <option value="all">All Departments</option>
+                            <option value="Human Resources (HR)">Human Resources (HR)</option>
+                            <option value="Information Technology (IT)">Information Technology (IT)</option>
                             <option value="Finance">Finance</option>
                             <option value="Marketing">Marketing</option>
                             <option value="Supply Chain">Supply Chain</option>

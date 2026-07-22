@@ -108,52 +108,6 @@ body{
     border-color:#0F172A;
 }
 
-.add-btn{
-    border:none;
-    background:#16213e;
-    color:#fff;
-    padding:12px 22px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:15px;
-    transition:.3s;
-}
-
-.add-btn i{
-    margin-right:8px;
-}
-
-.add-btn:hover{
-    background:#0F172A;
-}
-
-/* ================= DEPARTMENT ================= */
-
-.department-section{
-    margin-bottom:35px;
-}
-
-.department-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
-}
-
-.department-title h2{
-    color:#16213e;
-    font-size:22px;
-}
-
-.staff-count{
-    background:#DBEAFE;
-    color:#1D4ED8;
-    padding:6px 14px;
-    border-radius:30px;
-    font-size:14px;
-    font-weight:600;
-}
-
 /* ================= TABLE ================= */
 .table-card{
     background:white;
@@ -214,10 +168,10 @@ tbody tr:hover{
 /* ================= ACTION ================= */
 
 .action-btn{
-    width:38px;
+    width:60px;
     height:38px;
     border:none;
-    border-radius:10px;
+    border-radius:20px;
     cursor:pointer;
     margin-right:6px;
     transition:.3s;

@@ -1,108 +1,192 @@
 import { db } from "./firebase-config.js";
 
-import { collection, addDoc, serverTimestamp, getDocs }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const departmentDropdown = 
-document.getElementById("department_name");
-
-const staffDropdown = 
-document.getElementById("assigned_to");
-
-/*
-================================
-LOAD STAFF BY DEPARTMENT
-================================
-*/
-
-departmentDropdown.addEventListener("change", async()=>{
-
-const selectedDepartment = 
-departmentDropdown.value;
-
-staffDropdown.innerHTML = 
-`<option value=""> Loading staff... </option>`;
-
-const staffSnapshot = await getDocs(
-collection(db,"staff")
-);
-
-staffDropdown.innerHTML =
-`<option value=""> Select Staff </option>`;
-
-staffSnapshot.forEach((doc)=>{
-
-const staff = doc.data();
-
-if(staff.department_name === selectedDepartment){
-
-const option = document.createElement("option");
-
-// simpan staff id
-option.value = doc.id;
-
-// paparkan nama staff
-option.textContent = staff.name;
-
-staffDropdown.appendChild(option);
-
+import {
+    collection,
+    addDoc,
+    serverTimestamp,
+    getDocs,
+    updateDoc,
+    doc
 }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-});
 
-});
+// =========================
+// ELEMENTS
+// =========================
 
-/*
-================================
-ADD TASK
-================================
-*/
 const form = document.getElementById("taskForm");
 
-form.addEventListener("submit", async(e)=>{
+const departmentDropdown =
+document.getElementById("departmentDropdown");
+
+const staffDropdown =
+document.getElementById("assigned_to");
+
+
+// =========================
+// LOAD STAFF BY DEPARTMENT
+// =========================
+
+departmentDropdown.addEventListener("change", async () => {
+
+    const selectedDepartment =
+    departmentDropdown.value;
+
+    staffDropdown.innerHTML =
+    `
+    <option value="">
+        Loading staff...
+    </option>
+    `;
+
+    if (selectedDepartment === "") {
+
+        staffDropdown.innerHTML =
+        `
+        <option value="">
+            Select Department First
+        </option>
+        `;
+
+        return;
+    }
+
+    try {
+
+        const snapshot = await getDocs(
+            collection(db, "users")
+        );
+
+        staffDropdown.innerHTML =
+        `
+        <option value="">
+            Select Staff
+        </option>
+        `;
+
+        snapshot.forEach((userDoc) => {
+
+            const user = userDoc.data();
+
+            if (
+                selectedDepartment === "all" ||
+                user.department_name === selectedDepartment
+            ) {
+
+                const option =
+                document.createElement("option");
+
+                // Simpan document id user
+                option.value = user.display_name;
+                option.textContent = user.display_name;
+
+                staffDropdown.appendChild(option);
+
+            }
+
+        });
+
+        if (staffDropdown.options.length === 1) {
+
+            staffDropdown.innerHTML =
+            `
+            <option value="">
+                No staff found
+            </option>
+            `;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error loading staff:",
+            error
+        );
+
+        staffDropdown.innerHTML =
+        `
+        <option value="">
+            Failed to load staff
+        </option>
+        `;
+
+    }
+
+});
+
+
+// =========================
+// ADD TASK
+// =========================
+
+form.addEventListener("submit", async (e) => {
+
     e.preventDefault();
-    try{
+
+    try {
+
+        const assignedUserId =
+        staffDropdown.value;
+
         const docRef = await addDoc(
-            collection(db,"tasks"),
+
+            collection(db, "tasks"),
+
             {
+
                 title:
                 document.getElementById("title").value,
-                
+
                 description:
                 document.getElementById("description").value,
-                
+
                 assigned_to:
-                document.getElementById("assigned_to").value,
-                
-                status:
-                document.getElementById("status").value,
-                
+                staffDropdown.value,
+
+                department_name:
+                departmentDropdown.value,
+
                 due_date:
                 document.getElementById("due_date").value,
-                
-                department_name:
-                document.getElementById("department_name").value,
-                
+
+                status:
+                document.getElementById("status").value,
+
                 created_at:
                 serverTimestamp()
+
+            }
+
+        );
+
+        // Simpan task_id
+        await updateDoc(
+            docRef,
+            {
+                task_id: docRef.id
             }
         );
 
-        // simpan task_id juga
-        await updateDoc(docRef,{
-        task_id: docRef.id
-        });
-
         alert("Task added successfully!");
-        window.location.href="manage_task.php";
+
+        window.location.href =
+        "task.php";
+
     }
 
-        catch(error){
-        
-            console.error(error);
-            
-            alert(
-            "Error adding task"
-            );
-        }
+    catch (error) {
+
+        console.error(
+            "Error adding task:",
+            error
+        );
+
+        alert("Error adding task.");
+
+    }
+
 });

@@ -242,41 +242,13 @@ function displayAttendance(data){
         tbody.innerHTML += `
 
         <tr>
-
-            <td>
-                ${attendance.staffName}
-            </td>
-
-
-            <td>
-                ${attendance.created_at}
-            </td>
-
-
-            <td>
-                ${attendance.check_in}
-            </td>
-
-
-            <td>
-                ${attendance.check_out}
-            </td>
-
-
-            <td>
-                ${attendance.work_mode}
-            </td>
-
-
-            <td>
-                ${attendance.reason}
-            </td>
-
-
-            <td>
-                ${badge}
-            </td>
-
+            <td>${attendance.staffName}</td>
+            <td>${attendance.created_at}</td>
+            <td>${attendance.check_in}</td>
+            <td>${attendance.check_out}</td>
+            <td>${attendance.work_mode}</td>
+            <td>${attendance.reason}</td>
+            <td>${badge}</td>
         </tr>
 
         `;

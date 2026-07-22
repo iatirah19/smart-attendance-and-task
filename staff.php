@@ -4,7 +4,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,121 +14,68 @@
 </head>
 
 <body>
+    <div>
+        <!-- Sidebar -->
+        <?php include 'sidebar.php'; ?>
 
-<div>
+        <!-- Main Content -->
+        <main class="main-content">
 
-    <!-- Sidebar -->
-    <?php include 'sidebar.php'; ?>
+            <!-- Menu Toggle -->
+            <button class="menu-toggle" id="toggleBtn">
+                <i class="fas fa-bars"></i>
+            </button>
 
-
-    <!-- Main Content -->
-    <main class="main-content">
-
-
-        <!-- Menu Toggle -->
-        <button class="menu-toggle" id="toggleBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-
-
-        <!-- Page Header -->
-        <div class="page-header">
-
-            <div>
-
-                <h1>
-                    Manage Staff
-                </h1>
-
-                <p>
-                    View and manage all staff by department.
-                </p>
-
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1>Manage Staff</h1>
+                    <p>View and manage all staff by department.</p>
+                </div>
             </div>
 
-        </div>
+            <!-- Search & Filter -->
+            <div class="top-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search staff...">
+                </div>
 
-
-        <!-- Search & Filter -->
-        <div class="top-bar">
-
-            <div class="search-box">
-
-                <i class="fas fa-search"></i>
-
-                <input
-                type="text"
-                id="searchInput"
-                placeholder="Search staff...">
-
+                <div class="filter-box">
+                    <select id="departmentFilter">
+                        <option value="all">All Departments</option>
+                        <option value="Human Resources (HR)">Human Resources (HR)</option>
+                        <option value="Information Technology (IT)">Information Technology (IT)</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Supply Chain">Supply Chain</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Data Analytics">Data Analytics</option>
+                    </select>
+                </div>
             </div>
 
-
-            <div class="filter-box">
-
-                <select id="departmentFilter">
-                    <option value="all">All Departments</option>
-                    <option value="Human Resources (HR)">Human Resources (HR)</option>
-                    <option value="Information Technology (IT)">Information Technology (IT)</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Supply Chain">Supply Chain</option>
-                    <option value="Maintenance">Maintenance</option>
-                    <option value="Data Analytics">Data Analytics</option>
-                </select>
-
+            <!-- Staff Table -->
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Staff ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Position</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffTable">
+                        <!-- Firebase data display here -->
+                    </tbody>
+                </table>
             </div>
-
-        </div>
-
-
-        <!-- Staff Table -->
-        <div class="table-card">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Staff ID</th>
-
-                        <th>Name</th>
-
-                        <th>Email</th>
-
-                        <th>Department</th>
-
-                        <th>Position</th>
-
-                        <th>Status</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="staffTable">
-
-                    <!-- Firebase data display here -->
-
-                </tbody>
-
-
-            </table>
-
-        </div>
-
-
-    </main>
-
-</div>
-
-
-<script type="module" src="staff.js"></script>
-
+        </main>
+    </div>
+    <script type="module" src="staff.js"></script>
 </body>
-
 </html>
