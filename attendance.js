@@ -116,47 +116,33 @@ async function loadAttendance(){
 
             attendanceData.push({
 
-                id:docSnap.id,
+                id: docSnap.id,
 
-                staffName:staffName,
+                staffName: staffName,
 
-                created_at:
-                formatDate(
-                    attendance.created_at
-                ),
+                created_at: formatDate(attendance.created_at),
 
-                check_in:
-                formatTime(
-                    attendance.check_in
-                ),
+                created_at_raw: attendance.created_at,
 
-                check_out:
-                formatTime(
-                    attendance.check_out
-                ),
+                check_in: formatTime(attendance.check_in),
 
-                work_mode:
-                attendance.work_mode ?? "-",
+                check_out: formatTime(attendance.check_out),
 
+                work_mode: attendance.work_mode ?? "-",
 
-                reason:
-                attendance.reason ?? "-",
+                reason: attendance.reason ?? "-",
 
-
-                status:
-                attendance.status ?? "-"
-
-
+                status: attendance.status ?? "-"
+            
             });
-
 
         }
 
-
-
-        displayAttendance(
-            attendanceData
-        );
+        attendanceData.sort((a, b) => {
+            return b.created_at_raw.toMillis() - a.created_at_raw.toMillis();
+        });
+        
+        displayAttendance(attendanceData);
 
 
     }

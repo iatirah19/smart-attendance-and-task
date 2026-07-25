@@ -21,8 +21,8 @@ async function loadStaff() {
         snapshot.forEach((document) => {
             const data = document.data();
             allStaff.push({
-                id: document.id,
-                ...data
+                ...data,
+                id: document.id
             });
         });
         displayStaff(allStaff);
@@ -74,8 +74,8 @@ function displayStaff(data) {
                 <td>${users.department_name ?? "-"}</td>
                 <td>${users.position ?? "-"}</td>
                 <td>
-                    <span class="status active">
-                        Active
+                    <span class="status ${users.status === 'Resign' ? 'resign' : 'active'}">
+                        ${users.status || 'Active'}
                     </span>
                 </td>
                 <td>
@@ -96,7 +96,26 @@ function displayStaff(data) {
             </tr>
         `;
     });
+    addEditEvent();
     addDeleteEvent();
+}
+
+
+function addEditEvent() {
+
+    const buttons = document.querySelectorAll(".edit");
+
+    buttons.forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            const id = button.dataset.id;
+            window.location.href = `edit_staff.php?id=${id}`;
+
+        });
+
+    });
+
 }
 
 // =========================
@@ -105,7 +124,7 @@ function displayStaff(data) {
 
 function addDeleteEvent() {
 
-    const buttons = document.querySelectorAll(".delete-btn");
+    const buttons = document.querySelectorAll(".delete");
 
     buttons.forEach((button) => {
 

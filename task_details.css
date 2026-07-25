@@ -1,0 +1,286 @@
+/* =====================
+   GLOBAL STYLE
+===================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background: #f5f5f5;
+
+    padding: 30px;
+
+    margin: 0;
+
+    color: #333;
+
+}
+
+
+
+/* =====================
+   CONTAINER
+===================== */
+
+.container {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+}
+
+
+
+/* =====================
+   CARD STYLE
+===================== */
+
+.task-card,
+.update-card,
+.empty {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 10px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+/* =====================
+   TASK DETAILS
+===================== */
+
+.task-card h2 {
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    color: #2563eb;
+
+}
+
+
+
+.task-info p {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 10px 0;
+
+    margin: 0;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+
+.task-info p:last-child {
+
+    border-bottom: none;
+
+}
+
+
+
+/* =====================
+   UPDATE CARD
+===================== */
+
+.update-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+.update-header strong {
+
+    color: #222;
+
+}
+
+
+
+.update-header span {
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+
+
+.update-card p {
+
+    line-height: 1.6;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+/* =====================
+   FILE SECTION
+===================== */
+
+.files ul {
+
+    padding-left: 20px;
+
+}
+
+
+
+.files a {
+
+    color: #007bff;
+
+    text-decoration: none;
+
+}
+
+
+
+.files a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+
+/* =====================
+   EMPTY STATE
+===================== */
+
+.empty {
+
+    text-align: center;
+
+    color: #777;
+
+}
+
+
+
+/* =====================
+   MOBILE RESPONSIVE
+   <= 768px
+===================== */
+
+@media (max-width: 768px) {
+
+
+    body {
+
+        padding: 15px;
+
+    }
+
+
+
+    .container {
+
+        width: 100%;
+
+    }
+
+
+
+    .task-card,
+    .update-card,
+    .empty {
+
+        padding: 18px;
+
+        border-radius: 8px;
+
+    }
+
+
+
+    .task-card h2 {
+
+        font-size: 22px;
+
+    }
+
+
+
+    .task-info p {
+
+        display: block;
+
+        padding: 12px 0;
+
+    }
+
+
+
+    .task-info strong {
+
+        display: block;
+
+        margin-bottom: 5px;
+
+    }
+
+
+
+    .update-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 5px;
+
+    }
+
+
+
+    .update-header span {
+
+        font-size: 13px;
+
+    }
+
+
+
+    .update-card p {
+
+        font-size: 14px;
+
+    }
+
+
+}

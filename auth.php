@@ -86,7 +86,7 @@
                     type="text"
                     id="department_name"
                     name="department"
-                    value="Management"
+                    value="Administrator"
                     readonly>
             </div>
 

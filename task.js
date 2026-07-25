@@ -70,6 +70,20 @@ async function loadTask(){
 
 }
 
+function formatDueDate(timestamp) {
+
+    if (!timestamp) return "-";
+
+    return timestamp.toDate().toLocaleString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    });
+
+}
 
 
 // ================= DISPLAY TASK =================
@@ -111,7 +125,7 @@ function displayTask(data){
 
             <td>${task.assigned_to ?? "-"}</td>
 
-            <td>${task.due_date ?? "-"}</td>
+            <td>${formatDueDate(task.due_date)}</td>
 
 
             <td>
@@ -132,10 +146,10 @@ function displayTask(data){
                 </button>
 
 
-                <button class="edit-btn">
-
+                <button 
+                class="edit-btn"
+                onclick="editTask('${task.id}')">
                     <i class="fas fa-pen"></i>
-
                 </button>
 
 
@@ -156,37 +170,43 @@ function displayTask(data){
 function filterTask(){
 
     const search =
-    searchInput.value
-    .toLowerCase()
-    .trim();
+        searchInput.value
+        .toLowerCase()
+        .trim();
+
 
     const department =
-    departmentFilter.value;
+        departmentFilter.value;
 
 
     const status =
-    statusFilter.value;
+        statusFilter.value;
+
+
 
     const filtered = taskData.filter(task=>{
 
+
         const title =
-        (task.title ?? "")
-        .toLowerCase();
+            (task.title ?? "")
+            .toLowerCase();
+
 
         const taskDepartment =
-        task.department_name ?? "";
+            task.department_name ?? "";
+
 
         const taskStatus =
-        task.status ?? "";
+            task.status ?? "";
+
+
 
         return (
 
-            // SEARCH TASK TITLE
             title.includes(search)
 
             &&
 
-            // FILTER DEPARTMENT
             (
                 department === "all" ||
                 taskDepartment === department
@@ -194,55 +214,47 @@ function filterTask(){
 
             &&
 
-            // FILTER STATUS
             (
                 status === "all" ||
                 taskStatus === status
             )
+
         );
+
+
     });
+
+
     displayTask(filtered);
+
 }
+
+// ================= EDIT TASK =================
+
+window.editTask = function(id){
+
+    window.location.href =
+    "edit_task.php?id=" + id;
+
+};
 
 // ================= DELETE TASK =================
 
 window.deleteTask = async function(id){
-
-
     if(confirm("Delete this task?")){
-
-
         try{
-
-
             await deleteDoc(
                 doc(db,"tasks",id)
             );
-
-
             alert("Task deleted successfully");
-
-
             loadTask();
-
-
         }
-
         catch(error){
-
             console.error(error);
-
             alert("Failed to delete task");
-
         }
-
-
     }
-
-
 };
-
-
 
 // ================= VIEW TASK =================
 
@@ -253,7 +265,24 @@ window.viewTask = function(id){
 
 };
 
+// ================= EVENT LISTENER =================
 
+searchInput.addEventListener(
+    "input",
+    filterTask
+);
+
+
+departmentFilter.addEventListener(
+    "change",
+    filterTask
+);
+
+
+statusFilter.addEventListener(
+    "change",
+    filterTask
+);
 
 // ================= START =================
 

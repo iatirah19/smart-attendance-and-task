@@ -47,6 +47,7 @@ $adminName = $_SESSION['username'] ?? 'Admin';
                             <option value="Supply Chain">Supply Chain</option>
                             <option value="Maintenance">Maintenance</option>
                             <option value="Data Analytics">Data Analytics</option>
+                            <option value="Administrator">Administrator</option>
                         </select>
                     </div>
                 

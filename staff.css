@@ -155,14 +155,14 @@ tbody tr:hover{
     font-weight:600;
 }
 
-.status.active{
-    background:#DCFCE7;
-    color:#15803D;
+.status.active {
+    background: #d4edda;
+    color: #155724;
 }
 
-.status.inactive{
-    background:#FEE2E2;
-    color:#DC2626;
+.status.resign {
+    background: #f8d7da;
+    color: #721c24;
 }
 
 /* ================= ACTION ================= */

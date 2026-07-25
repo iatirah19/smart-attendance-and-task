@@ -6,7 +6,8 @@ import {
     serverTimestamp,
     getDocs,
     updateDoc,
-    doc
+    doc,
+    Timestamp
 }
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -129,14 +130,16 @@ form.addEventListener("submit", async (e) => {
 
     try {
 
-        const assignedUserId =
-        staffDropdown.value;
+        const customTaskId =
+        document.getElementById("task_id").value;
 
         const docRef = await addDoc(
 
             collection(db, "tasks"),
 
             {
+                task_id:
+                customTaskId,
 
                 title:
                 document.getElementById("title").value,
@@ -151,7 +154,11 @@ form.addEventListener("submit", async (e) => {
                 departmentDropdown.value,
 
                 due_date:
-                document.getElementById("due_date").value,
+                Timestamp.fromDate(
+                    new Date(
+                        document.getElementById("due_date").value
+                    )
+                ),
 
                 status:
                 document.getElementById("status").value,
@@ -161,14 +168,6 @@ form.addEventListener("submit", async (e) => {
 
             }
 
-        );
-
-        // Simpan task_id
-        await updateDoc(
-            docRef,
-            {
-                task_id: docRef.id
-            }
         );
 
         alert("Task added successfully!");

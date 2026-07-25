@@ -27,6 +27,11 @@ $username = $_SESSION['username'] ?? "Admin";
             <div class="form-container">
                 <form id="taskForm">
                     <div class="form-group">
+                        <label>Task ID</label>
+                        <input type="text" id="task_id" placeholder="Enter task ID" required>
+                    </div>
+
+                    <div class="form-group">
                         <label>Task Title</label>
                         <input type="text" id="title" placeholder="Enter task title" required>
                     </div>
@@ -50,6 +55,7 @@ $username = $_SESSION['username'] ?? "Admin";
                             <option value="Supply Chain">Supply Chain</option>
                             <option value="Maintenance">Maintenance</option>
                             <option value="Data Analytics">Data Analytics</option>
+                            <option value="Administrator">Administrator</option>
                         </select>
                     </div>
                     
@@ -62,7 +68,7 @@ $username = $_SESSION['username'] ?? "Admin";
                     
                     <div class="form-group">
                         <label>Due Date</label>
-                        <input type="date" id="due_date" required>
+                        <input type="datetime-local" id="due_date" required>
                     </div>
                     
                     <div class="form-group">
