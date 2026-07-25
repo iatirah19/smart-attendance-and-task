@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile - Work Pulse</title>
-    <link rel="stylesheet" href="edit_profile.css">
+    <link rel="stylesheet" href="CSS/edit_profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
@@ -76,12 +76,12 @@
 
         <div class="form-group">
             <label>Department</label>
-            <input type="text" id="department_name" readonly>
+            <input type="text" id="department_name">
         </div>
 
         <div class="form-group">
             <label>Position</label>
-            <input type="text" id="position" readonly>
+            <input type="text" id="position">
         </div>
 
         <button class="save-btn" onclick="saveChanges()">
@@ -93,7 +93,7 @@
 
 </div>
 
-<script type="module" src="edit_profile.js"></script>
+<script type="module" src="JS/edit_profile.js"></script>
 
 </body>
 

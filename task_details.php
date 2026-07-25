@@ -9,7 +9,7 @@ $task_id = $_GET['id'] ?? "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Details - Work Pulse</title>
-    <link rel="stylesheet" href="task_details.css">
+    <link rel="stylesheet" href="CSS/task_details.css">
 </head>
 
 <body>
@@ -75,7 +75,7 @@ $task_id = $_GET['id'] ?? "";
     >
 
 
-    <script type="module" src="task_details.js"></script>
+    <script type="module" src="JS/task_details.js"></script>
 
 </body>
 

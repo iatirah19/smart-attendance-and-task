@@ -11,7 +11,7 @@ $username = $_SESSION['username'] ?? "Admin";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Task - Work Pulse</title>
 
-    <link rel="stylesheet" href="add_task.css">
+    <link rel="stylesheet" href="CSS/add_task.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
@@ -230,7 +230,7 @@ $username = $_SESSION['username'] ?? "Admin";
 
 
 
-<script type="module" src="edit_task.js"></script>
+<script type="module" src="JS/edit_task.js"></script>
 
 
 </body>

@@ -60,6 +60,7 @@ onAuthStateChanged(auth, async(user) => {
     }
 
     currentUID = user.uid;
+    console.log("Logged UID:", user.uid);
 
     try {
 
