@@ -8,8 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Staff - Work Pulse</title>
-    <link rel="stylesheet" href="staff.css">
-    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="CSS/staff.css">
+    <link rel="stylesheet" href="CSS/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
@@ -77,6 +77,6 @@
             </div>
         </main>
     </div>
-    <script type="module" src="staff.js"></script>
+    <script type="module" src="JS/staff.js"></script>
 </body>
 </html>

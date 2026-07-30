@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Work Pulse</title>
-    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="CSS/auth.css">
 </head>
 
 <body>
@@ -119,7 +119,7 @@
 
 </div>
 
-<script type="module" src="auth.js"></script>
+<script type="module" src="JS/auth.js"></script>
 
 </body>
 

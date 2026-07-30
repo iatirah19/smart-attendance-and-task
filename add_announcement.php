@@ -11,7 +11,7 @@ $adminName = $_SESSION['username'] ?? 'Admin';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Announcement - Work Pulse</title>
-    <link rel="stylesheet" href="add_announcement.css">
+    <link rel="stylesheet" href="CSS/add_announcement.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
@@ -70,6 +70,6 @@ $adminName = $_SESSION['username'] ?? 'Admin';
             </form>
         </main>
     </div>
-    <script type="module" src="add_announcement.js"></script>
+    <script type="module" src="JS/add_announcement.js"></script>
 </body>
 </html>

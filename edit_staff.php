@@ -8,7 +8,7 @@ $id = $_GET['id'] ?? "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Staff - Work Pulse</title>
-    <link rel="stylesheet" href="edit_staff.css">
+    <link rel="stylesheet" href="CSS/edit_staff.css">
 </head>
 
 <body>
@@ -74,7 +74,7 @@ $id = $_GET['id'] ?? "";
 
 </div>
 
-<script type="module" src="edit_staff.js"></script>
+<script type="module" src="JS/edit_staff.js"></script>
 
 </body>
 </html>
